@@ -13,7 +13,7 @@
                 </el-select>
             </el-form-item> -->
             <el-form-item label="商品名称">
-                <el-input v-model="model.name"></el-input>
+                <el-input style="width:350px" v-model="model.name"></el-input>
             </el-form-item>
             <el-form-item label="商品描述">
                 <el-input type="textarea" v-model="model.desc"></el-input>
@@ -28,8 +28,8 @@
                     ></el-option>
                 </el-select>
             </el-form-item>
-            <el-form-item label="商品价格" width="120px">
-                <el-input v-model="model.price"></el-input>元
+            <el-form-item label="商品价格">
+                <el-input style="width:120px" v-model="model.price"></el-input>&nbsp;&nbsp;元/kg
             </el-form-item>
             <el-form-item label="图标">
                 <el-upload

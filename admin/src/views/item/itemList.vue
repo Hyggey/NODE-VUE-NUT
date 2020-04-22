@@ -6,6 +6,7 @@
             <!-- 下面的parent是在数据库模型中设计的，所以可以直接用 -->
             <!-- <el-table-column prop="parent.name" label="上级分类"></el-table-column> -->
             <el-table-column prop="name" label="物品名称"></el-table-column>
+            <el-table-column prop="categories" label="所属分类"></el-table-column>
             <el-table-column prop="icon" label="图标">
                 <template slot-scope="scope">
                     <img :src="scope.row.icon" alt="" style="height:3rem">
@@ -54,6 +55,7 @@ export default {
                 method:'get',
                 url:'rest/items'
             })
+            // console.log(res.data)
             this.tableData = res.data
         },
         async remove(row){

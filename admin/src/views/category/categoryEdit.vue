@@ -2,7 +2,7 @@
     <div>
         <h1>{{id?'编辑':'新增'}}分类</h1>
         <el-form label-width="120px" @submit.native.prevent="save">
-            <el-form-item label="上级分类">
+            <!-- <el-form-item label="上级分类">
                 <el-select v-model="model.parent">
                     <el-option 
                     v-for="item in parents"
@@ -11,7 +11,7 @@
                     :value="item._id">
                     </el-option>
                 </el-select>
-            </el-form-item>
+            </el-form-item> -->
             <el-form-item label="名称">
                 <el-input v-model="model.name"></el-input>
             </el-form-item>

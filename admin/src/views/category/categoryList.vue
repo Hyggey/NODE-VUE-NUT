@@ -4,7 +4,7 @@
         <el-table :data="tableData">
             <el-table-column prop="_id" label="ID" width="240"></el-table-column>
             <!-- 下面的parent是在数据库模型中设计的，所以可以直接用 -->
-            <el-table-column prop="parent.name" label="上级分类"></el-table-column>
+            <!-- <el-table-column prop="parent.name" label="上级分类"></el-table-column> -->
             <el-table-column prop="name" label="分类名称"></el-table-column>
             <el-table-column
                 fixed="right"

@@ -14,6 +14,9 @@ app.use('/uploads',express.static(__dirname + '/uploads'))
 // 引入admin的路由
 require ('./routes/admin')(app)
 
+// 引入web的路由
+require ('./routes/web')(app)
+
 // 引入连接数据库的mongoose
 require('./plugins/db')(app)
 

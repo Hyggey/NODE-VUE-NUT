@@ -1,0 +1,30 @@
+{
+  "id": "1774112",
+  "name": "node-vue-web",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon",
+  "description": "vant-ui前端页面展示",
+  "glyphs": [
+    {
+      "icon_id": "683285",
+      "name": "首页",
+      "font_class": "shouye2",
+      "unicode": "e660",
+      "unicode_decimal": 58976
+    },
+    {
+      "icon_id": "338313",
+      "name": "首页",
+      "font_class": "shouye",
+      "unicode": "e63a",
+      "unicode_decimal": 58938
+    },
+    {
+      "icon_id": "617438",
+      "name": "分类",
+      "font_class": "fenlei",
+      "unicode": "e67b",
+      "unicode_decimal": 59003
+    }
+  ]
+}
