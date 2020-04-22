@@ -1,7 +1,7 @@
 <template>
     <div>
         <h1>{{id?'编辑':'新增'}}分类</h1>
-        <el-form label-width="120px" @submit.native="save">
+        <el-form label-width="120px" @submit.native.prevent="save">
             <el-form-item label="上级分类">
                 <el-select v-model="model.parent">
                     <el-option 

@@ -1,6 +1,6 @@
 <template>
     <div>
-        <h1>{{id?'编辑':'新增'}}物品</h1>
+        <h1>{{id?'编辑':'新增'}}商品</h1>
         <el-form label-width="120px" @submit.native="save">
             <!-- <el-form-item label="上级分类">
                 <el-select v-model="model.parent">
@@ -12,8 +12,24 @@
                     </el-option>
                 </el-select>
             </el-form-item> -->
-            <el-form-item label="名称">
+            <el-form-item label="商品名称">
                 <el-input v-model="model.name"></el-input>
+            </el-form-item>
+            <el-form-item label="商品描述">
+                <el-input type="textarea" v-model="model.desc"></el-input>
+            </el-form-item>
+            <el-form-item label="所属分类">
+                <el-select v-model="model.categories" multiple>
+                    <el-option
+                        v-for="item in categories"
+                        :label="item.name"
+                        :key="item._id"
+                        :value="item._id"
+                    ></el-option>
+                </el-select>
+            </el-form-item>
+            <el-form-item label="商品价格" width="120px">
+                <el-input v-model="model.price"></el-input>元
             </el-form-item>
             <el-form-item label="图标">
                 <el-upload
@@ -46,6 +62,7 @@ export default {
             model:{
                 // icon:''    不写默认数据的话，后面就用$set
             },  // 新建的分类名字
+            categories:[],  // 食品的类型，进口食品，当季新品...
             parents:[]  // 分类父级列表
         }
     },
@@ -54,8 +71,15 @@ export default {
         // 意思是如果id存在，就执行fetch方法
         this.id && this.fetch()
         this.fetchParents()
+        this.fetchCategories()
     },
     methods: {
+        // 获取食品分类类型
+        async fetchCategories(){
+            const res = await this.$axios.get(`rest/categories`)
+            console.log(res)
+            this.categories = res.data
+        },
         // 上传成功后做什么
         afterUpload(res){
             // this.model.icon = res.url  //初始data中没有给

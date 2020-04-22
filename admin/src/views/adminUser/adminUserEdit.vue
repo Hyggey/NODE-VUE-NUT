@@ -32,7 +32,6 @@ export default {
         console.log(this.id)
         // 意思是如果id存在，就执行fetch方法
         this.id && this.fetch()
-        this.fetchParents()
     },
     methods: {
         // 新增分类的方法,下面是老式写法，也可以用
