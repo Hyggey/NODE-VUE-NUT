@@ -9,6 +9,11 @@ const schema = new mongoose.Schema({
     desc:{type:String},
     // 分类，是当季新品，还是进口食品，注意这里一个商品可能有多个分类,要用数组表示
     categories:[{type:mongoose.SchemaTypes.ObjectId,ref:'Category'}],
+    goodsImg:[{
+        image:{type:String}
+    }],
+    // 详情 符文本编辑器
+    body:{type:String}
 })
 
 // schema.virtual('children',{

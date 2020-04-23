@@ -1,7 +1,7 @@
 <template>
-    <div>
+    <div class="itemEdit_box">
         <h1>{{id?'编辑':'新增'}}商品</h1>
-        <el-form label-width="120px" @submit.native="save">
+        <el-form label-width="120px" @submit.native.prevent="save">
             <!-- <el-form-item label="上级分类">
                 <el-select v-model="model.parent">
                     <el-option 
@@ -42,6 +42,33 @@
                 <i v-else class="el-icon-plus avatar-uploader-icon"></i>
                 </el-upload>
             </el-form-item>
+            <el-form-item label="轮播图片">
+                <el-button size="small" type="primary" @click="model.goodsImg.push({})"><i class="el-icon-plus"></i>添加图片</el-button>
+                <el-row type="flex" style="flex-wrap:wrap">
+                    <el-col :md="12" v-for="(item,index) in model.goodsImg" :key="index">
+                        <el-form-item label="图片" style="margin-top:1.2rem">
+                            <el-upload
+                                class="avatar-uploader"
+                                :action="$axios.defaults.baseURL+'/upload'"
+                                :show-file-list="false"
+                                :on-success="res => $set(item,'image',res.url)"
+                                >
+                                <img v-if="item.image" :src="item.image" class="avatar">
+                                <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+                            </el-upload>
+                        </el-form-item>
+                        <el-form-item>
+                            <el-button size="small" type="danger" @click="model.goodsImg.splice(index,1)">删除</el-button>
+                        </el-form-item>
+                    </el-col>
+                </el-row>
+            </el-form-item>
+            <el-form-item label="详情">
+                <vue-editor
+                useCustomImageHandler
+                @image-added="handleImageAdded"
+                v-model="model.body"></vue-editor>
+            </el-form-item>
             <el-form-item>
                 <el-button type="primary" native-type="submit">保存</el-button>
             </el-form-item>
@@ -50,6 +77,7 @@
 </template>
 
 <script>
+import {VueEditor} from 'vue2-editor'
 export default {
     // 自己传自己
     props:{
@@ -57,9 +85,13 @@ export default {
             type:String
         }
     },
+    components:{
+        VueEditor
+    },
     data(){
         return {
             model:{
+                goodsImg:[]
                 // icon:''    不写默认数据的话，后面就用$set
             },  // 新建的分类名字
             categories:[],  // 食品的类型，进口食品，当季新品...
@@ -135,33 +167,49 @@ export default {
             const res = await this.$axios.get(`rest/items`)
             console.log(res)
             this.parents = res.data
-        }
+        },
+        // 处理富文本编辑器图片的方法
+        async handleImageAdded(file, Editor, cursorLocation, resetUploader) {
+      // An example of using FormData
+      // NOTE: Your key could be different such as:
+      // formData.append('file', file)
+ 
+            var formData = new FormData();
+            formData.append("file", file);
+
+            const res = await this.$axios.post('upload',formData)
+            Editor.insertEmbed(cursorLocation, "image", res.data.url);
+            resetUploader();
+        },
     },
 }
 </script>
 
-<style>
-.avatar-uploader .el-upload {
-    border: 1px dashed #d9d9d9;
-    border-radius: 6px;
-    cursor: pointer;
-    position: relative;
-    overflow: hidden;
-  }
-  .avatar-uploader .el-upload:hover {
-    border-color: #409EFF;
-  }
-  .avatar-uploader-icon {
-    font-size: 28px;
-    color: #8c939d;
-    width: 178px;
-    height: 178px;
-    line-height: 178px;
-    text-align: center;
-  }
-  .avatar {
-    width: 178px;
-    height: 178px;
-    display: block;
-  }
+<style lang="less" scoped>
+// .itemEdit_box{
+//     .avatar-uploader .el-upload {
+//         border: 1px dashed #d9d9d9;
+//         border-radius: 6px;
+//         cursor: pointer;
+//         position: relative;
+//         overflow: hidden;
+//     }
+//     .avatar-uploader .el-upload:hover {
+//         border-color: #409EFF;
+//     }
+//     .avatar-uploader-icon {
+//         font-size: 28px;
+//         color: #8c939d;
+//         width: 178px;
+//         height: 178px;
+//         line-height: 178px;
+//         text-align: center;
+//     }
+//     .avatar {
+//         width: 178px;
+//         height: 178px;
+//         display: block;
+//     }
+// }
+
 </style>

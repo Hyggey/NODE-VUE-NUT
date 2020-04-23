@@ -1,11 +1,12 @@
 <template>
     <div class="classify">
         <div>
-            <van-tree-select height="100%" :items="items" :main-active-index.sync="active">
+            <van-tree-select @click-nav="getIndex" height="100%" :items="items" :active-id.sync="activeId" :main-active-index.sync="active">
                 <template #content>
                     <div v-for="(item,index) in items" :key="index">
-                        <div v-if="active === index">
-                            <div v-for="(good,k) in item.children" :key="k">
+                        <!-- 大坑，不要用三个等于号，狗屎 -->
+                        <div v-if="active == index">
+                            <div @click="toGoods(good._id,active)" v-for="(good,k) in item.children" :key="k">
                                 <van-image
                                 :src="good.icon"
                                 />
@@ -28,7 +29,8 @@ export default {
     data(){
         return {
             active: 0,
-            items: [{ text: '分组 1' }, { text: '分组 2' }],
+            activeId:1,
+            items: [{ text: '分组 1',children:[]}, { text: '分组 2',children:[]}],
         }
     },
     methods: {
@@ -43,10 +45,22 @@ export default {
             })
             console.log(a)
             this.items = a
+        },
+        // 去到商品详情
+        toGoods(id,active){
+            this.$router.push({path:'/goods',query:{id:id}})
+        },
+        getIndex(index){
+            sessionStorage.active = index
         }
     },
     created() {
         this.fetchData()
+        // this.$nextTick(() =>{
+            if(sessionStorage.active){
+                this.active = sessionStorage.active
+            }
+        // })        
     },
 }
 </script>

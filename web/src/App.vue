@@ -7,12 +7,27 @@
 
 <script>
 export default {
-  name: 'App'
+  name: 'App',
+  data() {
+    return {
+      
+    }
+  },
+  watch:{
+    $route(to, from) {
+       if((to.path == '/tabbar/home')&&sessionStorage.active){
+          sessionStorage.removeItem('active')
+			}
+    }
+  }
 }
 </script>
-
+  
 <style>
 html,body{
 	height: 100vh;
+}
+#app{
+  padding-bottom: 4.8rem;
 }
 </style>

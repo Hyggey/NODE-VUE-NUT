@@ -7,6 +7,7 @@
             <!-- <el-table-column prop="parent.name" label="上级分类"></el-table-column> -->
             <el-table-column prop="name" label="物品名称"></el-table-column>
             <el-table-column prop="categories" label="所属分类"></el-table-column>
+            <el-table-column prop="price" label="价格"></el-table-column>
             <el-table-column prop="icon" label="图标">
                 <template slot-scope="scope">
                     <img :src="scope.row.icon" alt="" style="height:3rem">
@@ -33,7 +34,8 @@
 export default {
     data(){
         return{
-            tableData:[]
+            tableData:[],
+            categoryName:[]
         }
     },
     created() {
@@ -55,8 +57,18 @@ export default {
                 method:'get',
                 url:'rest/items'
             })
-            // console.log(res.data)
-            this.tableData = res.data
+            console.log(res.data)
+            // 无敌操作
+            this.tableData = res.data.map(item =>{
+                return {
+                    categories: item.categories.map(v => v.name).join('，'),
+                    desc:item.desc,
+                    icon: item.icon,
+                    name: item.name,
+                    price :item.price,
+                    _id: item._id
+                }
+            });
         },
         async remove(row){
             this.$confirm(`确定是否要删除分类"${row.name}"?`, '提示', {

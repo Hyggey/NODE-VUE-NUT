@@ -35,7 +35,11 @@ module.exports = app =>{
         if(req.Model.modelName === 'Category'){
             queryOptions.populate = 'parent'
         }
-        const data = await req.Model.find().setOptions(queryOptions).limit(10)
+        // 查出上级分类具体名称的，让他不仅仅是只给一个_id
+        if(req.Model.modelName === 'Item'){
+            queryOptions.populate = 'categories'
+        }
+        const data = await req.Model.find().setOptions(queryOptions)
         res.send(data)
     })
 

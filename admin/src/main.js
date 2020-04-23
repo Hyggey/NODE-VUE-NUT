@@ -8,7 +8,7 @@ import router from './router'
 import '@/public/js/common_components.js'
 
 //  全局引入公共样式
-import "@/public/css/reset.css"
+import "@/public/css/reset.less"
 
 // 全局引入axios请求方法
 import axios from '@/public/js/axiosCommon.js'

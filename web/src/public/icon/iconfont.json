@@ -6,6 +6,13 @@
   "description": "vant-ui前端页面展示",
   "glyphs": [
     {
+      "icon_id": "796985",
+      "name": "购物车",
+      "font_class": "gouwuche",
+      "unicode": "e653",
+      "unicode_decimal": 58963
+    },
+    {
       "icon_id": "683285",
       "name": "首页",
       "font_class": "shouye2",
