@@ -49,7 +49,7 @@ export default {
     methods: {
         // 获取swiper图片数据
         async fetchSwiper(){
-            const res = await this.$axios.get('/rest/ads')
+            const res = await this.$axios.get('/imgs')
             console.log(res.data[0])
             this.imgList = res.data[0].items
 

@@ -5,6 +5,14 @@ module.exports = app =>{
 
     const Item = require('../../models/Item')
 
+    const Ad = require('../../models/Ad')
+
+    // 前端获取首页轮播图的接口
+    router.get('/imgs', async(req,res) =>{
+        const ads = await Ad.find().lean()
+        res.send(ads)
+    })
+
     // 前端获取分类接口
     router.get('/classify', async(req,res) =>{
         const classify = await Category.find().populate({
@@ -26,5 +34,5 @@ module.exports = app =>{
     })
 
 
-    app.use('/admin/api',router)
+    app.use('/web/api',router)
 }
