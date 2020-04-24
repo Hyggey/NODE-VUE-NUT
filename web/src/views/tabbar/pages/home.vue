@@ -11,7 +11,9 @@
         <div class="swiper_box">
             <van-swipe class="my-swipe" :autoplay="3000" indicator-color="#e43a3d">
                 <van-swipe-item v-for="(item,index) in imgList" :key="index">
-                    <img v-lazy="item.image" alt="">
+                    <a :href="item.url">
+                        <img v-lazy="item.image" alt="">
+                    </a>
                 </van-swipe-item>
             </van-swipe>
         </div>

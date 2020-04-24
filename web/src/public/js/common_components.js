@@ -9,7 +9,8 @@ import {
     Search,
     TreeSelect, 
     Image as VanImage,
-    NavBar 
+    NavBar,
+    Divider
  } from 'vant';
 
 Vue.use(Button);
@@ -20,6 +21,7 @@ Vue.use(Search);
 Vue.use(TreeSelect);
 Vue.use(VanImage);
 Vue.use(NavBar);
+Vue.use(Divider);
 
 // 公共组件
 // 底部tabbar组件

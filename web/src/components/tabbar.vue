@@ -43,6 +43,7 @@ export default {
         width: 100%;
         display: flex;
         background: #f5f5f5;
+        height: 4rem;
         .tabbar_item{
             width: 50%;
             display: flex;

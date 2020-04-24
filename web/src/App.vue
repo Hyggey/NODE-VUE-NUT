@@ -28,6 +28,9 @@ html,body{
 	height: 100vh;
 }
 #app{
-  padding-bottom: 4.8rem;
+  /* height: 100vh; */
+  /* padding-bottom: 4.8rem; */
+  box-sizing: border-box;
+  background: #f8f8f8;
 }
 </style>
