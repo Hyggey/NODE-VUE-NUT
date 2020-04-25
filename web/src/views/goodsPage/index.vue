@@ -1,11 +1,11 @@
 <template>
     <div class="goods_box">
         <div class="header_top">
-            <van-nav-bar placeholder  title="商品详情" fixed left-arrow @click-left="onClickLeft">
-                <!-- <template #right>
-                    <van-icon name="search" size="18" />
-                </template> -->
-            </van-nav-bar>
+            <!-- <van-nav-bar placeholder  title="商品详情" fixed left-arrow @click-left="onClickLeft">
+            </van-nav-bar> -->
+            <button @click="onClickLeft">
+                <span class="iconfont iconarrowLeft-fill"></span>
+            </button>
         </div>
         <div class="swiper_box">
             <van-swipe @change="onChange" class="my-swipe" :autoplay="3000" indicator-color="#e43a3d">
@@ -64,7 +64,16 @@
             >
             图文详情
         </van-divider>
-        <div style="background:#fff;padding:15px 0 0 0" class="text" v-html="goodsData.body"></div>
+        <div style="background:#fff;padding:15px 0 50px 0" class="text" v-html="goodsData.body"></div>
+        <van-goods-action>
+            <van-goods-action-icon @click="$router.push('/')" icon="wap-home-o" text="首页" color="#909399" />
+            <van-goods-action-icon icon="cart-o" color="#909399" text="购物车" />
+            <van-goods-action-icon @click="flag = !flag" icon="star" :text="flag?'已收藏':'收藏'" :color="flag?'#fa436a':'#909399'" />
+            <!-- <div> -->
+            <van-goods-action-button type="warning" text="加入购物车" />
+            <van-goods-action-button @click="a" type="danger" text="立即购买" />
+            <!-- </div> -->
+        </van-goods-action>
     </div>
 </template>
 
@@ -77,7 +86,8 @@ export default {
             goodsData:{},
             current: 0,
             imgLength:0,
-            show:false //弹框
+            show:false, //弹框
+            flag: false //是否收藏
         }
     },
     methods: {
@@ -114,17 +124,33 @@ export default {
         // margin-top: 46px;
         .header_top{
             // height: 46px;
+            position: absolute;
+            left: .8rem;
+            top: .8rem;
+            z-index: 999;
             .van-nav-bar{
                 background: #e43a3d;
                 .van-nav-bar__arrow{
                     color: #fff;
                     font-size: 1.2rem;
                 }
-            }  
+            }
+            button{
+                border: 0;
+                width: 2.2rem;
+                height: 2.2rem;
+                color: #fff;
+                background: rgba(0, 0, 0, 0.4);
+                border-radius: 100%;
+                .iconarrowLeft-fill{
+                    font-size: 1.3rem;
+                }
+            }
         }
         .swiper_box{
         // height: 180px;
             .my-swipe .van-swipe-item {
+                position: relative;
                 color: #fff;
                 background: #fff;
                 font-size: 20px;
@@ -138,11 +164,14 @@ export default {
             }
             .custom-indicator {
                 position: absolute;
-                right: 5px;
-                bottom: 5px;
-                padding: 2px 5px;
-                font-size: 12px;
-                background: rgba(0, 0, 0, 0.1);
+                right: .8rem;
+                bottom: 1.2rem;
+                height: 1.2rem;
+                border-radius: 1.2rem;
+                padding: .2rem .7rem 0.1rem .7rem;
+                font-size: .7rem;
+                color: #fff;
+                background: rgba(0, 0, 0, 0.3);
             }
         }
         .details_msg{
@@ -250,6 +279,24 @@ export default {
                 height: auto;
                 margin: auto;
                 display: inherit;
+            }
+        }
+        .van-goods-action{
+            .van-goods-action-button--warning{
+                background: linear-gradient(to right, #ffac30, #fa436a);
+                &::after{
+                    content: '';
+                    width: 0;
+                    height: 15px;
+                    position: absolute;
+                    top: 50%;
+                    right: 0;
+                    transform: translateY(-50%);
+                    border-right: 1px solid rgba(255,255,255,0.8);
+                }
+            }
+            .van-goods-action-button--danger{
+                background: linear-gradient(to right, #fa436a, #F56C6C);
             }
         }
     }

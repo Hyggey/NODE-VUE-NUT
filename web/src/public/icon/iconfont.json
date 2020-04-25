@@ -6,6 +6,13 @@
   "description": "vant-ui前端页面展示",
   "glyphs": [
     {
+      "icon_id": "9512495",
+      "name": "左箭头",
+      "font_class": "arrowLeft-fill",
+      "unicode": "e611",
+      "unicode_decimal": 58897
+    },
+    {
       "icon_id": "1724895",
       "name": "星星",
       "font_class": "xingxing",

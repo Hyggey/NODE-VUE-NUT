@@ -10,7 +10,10 @@ import {
     TreeSelect, 
     Image as VanImage,
     NavBar,
-    Divider
+    Divider,
+    GoodsAction,
+    GoodsActionIcon,
+    GoodsActionButton 
  } from 'vant';
 
 Vue.use(Button);
@@ -22,6 +25,9 @@ Vue.use(TreeSelect);
 Vue.use(VanImage);
 Vue.use(NavBar);
 Vue.use(Divider);
+Vue.use(GoodsAction);
+Vue.use(GoodsActionButton);
+Vue.use(GoodsActionIcon);
 
 // 公共组件
 // 底部tabbar组件
