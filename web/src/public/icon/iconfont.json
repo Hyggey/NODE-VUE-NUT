@@ -6,6 +6,27 @@
   "description": "vant-ui前端页面展示",
   "glyphs": [
     {
+      "icon_id": "5383657",
+      "name": "搜索",
+      "font_class": "sousuo",
+      "unicode": "e782",
+      "unicode_decimal": 59266
+    },
+    {
+      "icon_id": "705651",
+      "name": "爱心",
+      "font_class": "aixin",
+      "unicode": "e602",
+      "unicode_decimal": 58882
+    },
+    {
+      "icon_id": "5972798",
+      "name": "皇冠",
+      "font_class": "huangguan",
+      "unicode": "e60e",
+      "unicode_decimal": 58894
+    },
+    {
       "icon_id": "9512495",
       "name": "左箭头",
       "font_class": "arrowLeft-fill",

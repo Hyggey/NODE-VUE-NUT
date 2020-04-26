@@ -31,7 +31,7 @@ export default {
         return {
             active: 0,
             activeId:1,
-            items: [{ text: '分组 1',children:[]}, { text: '分组 2',children:[]}],
+            items: [{ text: '',children:[]}, { text: '',children:[]}],
         }
     },
     methods: {
@@ -81,6 +81,9 @@ export default {
         .van-tree-select__nav{
             padding-bottom: 4rem;
             overflow-y: scroll;
+        }
+        .van-tree-select__content{
+            padding-bottom: 4rem;
         }
         .ware_box{
             display: flex;

@@ -7,6 +7,8 @@ module.exports = app =>{
 
     const Ad = require('../../models/Ad')
 
+    const Sale = require('../../models/Sale')
+
     // 前端获取首页轮播图的接口
     router.get('/imgs', async(req,res) =>{
         const ads = await Ad.find().lean()
@@ -31,6 +33,18 @@ module.exports = app =>{
     router.post('/goodsDetail/:id',async(req,res) =>{
         const goodsItem = await Item.findById(req.params.id).lean()
         res.send(goodsItem)
+    })
+
+    // 前端获取促销活动的接口
+    router.post('/activity',async(req,res) =>{
+        const activity = await Sale.find().populate('cheap.cheapGoods hot.hotGoods').lean()
+        res.send(activity)
+    })
+
+    // 前端关键字搜索的接口
+    router.post('/msg/:name',async(req,res) =>{
+        const data = await Item.find({"name": {$regex: req.params.name, $options:'i'}}).lean()
+        res.send(data)
     })
 
 

@@ -23,6 +23,11 @@
               <el-menu-item index="/ads/creat">新建广告位</el-menu-item>
               <el-menu-item index="/ads/list">广告位列表</el-menu-item>
             </el-menu-item-group>
+            <el-menu-item-group>
+              <template slot="title">促销活动</template>
+              <el-menu-item index="/sales/creat">新建促销活动</el-menu-item>
+              <el-menu-item index="/sales/list">活动列表商品</el-menu-item>
+            </el-menu-item-group>
           </el-submenu>
           <el-submenu index="3">
             <template slot="title">

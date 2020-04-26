@@ -19,17 +19,17 @@
                 </template>
             </van-swipe>
         </div>
-        <div class="details_msg">
+        <div class="details_msg" v-if="goodsData">
             <div class="title">{{goodsData.desc}}</div>
             <div class="price">
                 <span>￥</span>
                 <span>{{goodsData.price}}</span>
-                <span>￥40.0</span>
-                <span>7折</span>
+                <span>￥{{goodsData.oldPrice}}</span>
+                <span>{{goodsData.discount}}折</span>
             </div>
             <div class="ems">
-                <span>快递:免运费</span>
-                <span>中国台湾</span>
+                <span>快递：{{delivery}}</span>
+                <!-- <span>中国台湾</span> -->
             </div>
         </div>
         <div class="activity">
@@ -37,26 +37,25 @@
                 <span class="iconfont iconxingxing"></span>
                 新
             </div>
-            <span>新用户下单立享优惠！</span>
-            <p @click="a">立即下单<span style="font-size:17px" class="iconfont iconyoujiantou"></span></p>
+            <span>新店开业,欢迎大家来抢购！！</span>
+            <!-- <p @click="a">立即下单<span style="font-size:17px" class="iconfont iconyoujiantou"></span></p> -->
         </div>
         <div class="t_t">
             <div>促销活动</div>
             <div>
-                <span>新人首单送20元无门槛代金券</span>
-                <span>订单满50减10</span>
-                <span>订单满100减30</span>
+                <span v-for="(v,index) in adInfo" :key="index">{{v.item}}</span>
             </div>
         </div>
         <div class="t_t">
             <div>服务</div>
             <div>
-                <span>7天无理由退换货</span>
-                <span>假一赔十</span>
+                <span>送货上门，服务到位</span>
+                <span>包你满意</span>
             </div>
         </div>
-        <van-dialog v-model="show" title="二维码" show-confirm-button>
-            <img style="width:150px;height:150px" src="https://img.yzcdn.cn/vant/apple-3.jpg" />
+        <van-dialog v-model="show" :title="title" width="300px" className="hello" show-confirm-button>
+            <img style="width:160px;height:160px" :src="imgType" />
+            <span v-show="title=='微信二维码'">扫一扫添加好友</span>
         </van-dialog>
         <van-divider
             :style="{margin:'16px 0 0 0',fontSize:'18px',height:'40px',background:'#fff', 
@@ -67,11 +66,11 @@
         <div style="background:#fff;padding:15px 0 50px 0" class="text" v-html="goodsData.body"></div>
         <van-goods-action>
             <van-goods-action-icon @click="$router.push('/')" icon="wap-home-o" text="首页" color="#909399" />
-            <van-goods-action-icon icon="cart-o" color="#909399" text="购物车" />
-            <van-goods-action-icon @click="flag = !flag" icon="star" :text="flag?'已收藏':'收藏'" :color="flag?'#fa436a':'#909399'" />
+            <van-goods-action-icon @click="$router.push('/tabbar/classify')" icon="qr" color="#909399" text="分类" />
+            <!-- <van-goods-action-icon @click="flag = !flag" icon="star" :text="flag?'已收藏':'收藏'" :color="flag?'#fa436a':'#909399'" /> -->
             <!-- <div> -->
-            <van-goods-action-button type="warning" text="加入购物车" />
-            <van-goods-action-button @click="a" type="danger" text="立即购买" />
+            <van-goods-action-button type="warning" @click="open(1)" text="在线咨询" />
+            <van-goods-action-button @click="open(2)" type="danger" text="立即购买" />
             <!-- </div> -->
         </van-goods-action>
     </div>
@@ -79,6 +78,7 @@
 
 <script>
 import { Dialog } from 'vant';
+import {mapState} from 'vuex'
 export default {
     data(){
         return{
@@ -87,7 +87,9 @@ export default {
             current: 0,
             imgLength:0,
             show:false, //弹框
-            flag: false //是否收藏
+            // flag: false //是否收藏
+            imgType:'',
+            title:''
         }
     },
     methods: {
@@ -105,16 +107,32 @@ export default {
         onChange(index) {
             this.current = index;
         },
-        a(){
+        open(e){
+            console.log(e)
             this.show = true;
+            if(e == 1){
+                this.title = '微信二维码'
+                this.imgType = this.friendImg
+            }else{
+                this.title = '收款二维码'
+                this.imgType = this.cashImg
+            }
         }
     },
     created() {
         this.fetchGoodsDetail()
     },
     components: {
-    [Dialog.Component.name]: Dialog.Component,
-  },
+        [Dialog.Component.name]: Dialog.Component,
+    },
+    computed: {
+        ...mapState({
+            adInfo: state => state.ad.adInfo.activities,
+            delivery: state => state.ad.adInfo.delivery,
+            friendImg: state => state.ad.adInfo.friendImg,
+            cashImg: state => state.ad.adInfo.cashImg,
+        })
+    },
 }
 </script>
 
@@ -200,7 +218,7 @@ export default {
                 span:nth-child(3){
                     color: #666;
                     text-decoration: line-through;
-                    margin: 0 .8rem 0 .5rem;
+                    margin: 0 .8rem 0 .6rem;
                 }
                 span:last-child{
                     background: #fa436a;
@@ -279,6 +297,18 @@ export default {
                 height: auto;
                 margin: auto;
                 display: inherit;
+            }
+        }
+        .hello{
+            .van-dialog__content{
+                text-align: center;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                span{
+                    font-size: 15px;
+                    color: #666;
+                }
             }
         }
         .van-goods-action{

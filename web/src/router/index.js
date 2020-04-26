@@ -20,6 +20,11 @@ export default new Router({
 					path: '/tabbar/classify',
       				name: 'home',
 					component: () => import('@/views/tabbar/pages/classify.vue'),
+				},
+				{
+					path:'/tabbar/search',
+					name: 'search',
+					component: () => import('@/views/tabbar/pages/search.vue'),
 				}
 			]
 		},
@@ -31,6 +36,6 @@ export default new Router({
 			path:'/goods',
 			name: 'goods',
 			component: () => import('@/views/goodsPage/index.vue'),
-		}
+		},
   	]
 })

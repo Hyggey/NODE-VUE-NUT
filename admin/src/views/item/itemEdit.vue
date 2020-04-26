@@ -19,7 +19,7 @@
                 <el-input type="textarea" v-model="model.desc"></el-input>
             </el-form-item>
             <el-form-item label="所属分类">
-                <el-select v-model="model.categories" multiple>
+                <el-select v-model="model.categories" filterable multiple>
                     <el-option
                         v-for="item in categories"
                         :label="item.name"
@@ -28,8 +28,16 @@
                     ></el-option>
                 </el-select>
             </el-form-item>
-            <el-form-item label="商品价格">
-                <el-input style="width:120px" v-model="model.price"></el-input>&nbsp;&nbsp;元/kg
+            <div style="display:flex">
+                <el-form-item label="商品价格">
+                    <el-input style="width:120px" v-model="model.price"></el-input>&nbsp;&nbsp;元/kg
+                </el-form-item>
+                <el-form-item label="商品老价格">
+                    <el-input style="width:120px" v-model="model.oldPrice"></el-input>&nbsp;&nbsp;折
+                </el-form-item>
+            </div>
+            <el-form-item label="折扣">
+                <el-input style="width:120px" v-model="model.discount"></el-input>&nbsp;&nbsp;
             </el-form-item>
             <el-form-item label="图标">
                 <el-upload

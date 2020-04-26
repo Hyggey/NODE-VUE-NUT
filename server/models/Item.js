@@ -6,6 +6,8 @@ const schema = new mongoose.Schema({
     //  ref表示关联哪个模型，在这里就是关联本身 Category schema模型
     icon:{type:String},
     price:{type:String},
+    oldPrice:{type:String},   //老价格
+    discount:{type:String},   // 折扣，打几折
     desc:{type:String},
     // 分类，是当季新品，还是进口食品，注意这里一个商品可能有多个分类,要用数组表示
     categories:[{type:mongoose.SchemaTypes.ObjectId,ref:'Category'}],
@@ -22,5 +24,6 @@ const schema = new mongoose.Schema({
 //     justOne:false,
 //     ref:'Category'
 // })
+
 
 module.exports = mongoose.model('Item',schema)

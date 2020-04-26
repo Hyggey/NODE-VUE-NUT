@@ -13,6 +13,20 @@ export default {
       
     }
   },
+  created(){
+    this.fetchSwiper()
+  },
+  methods: {
+    // 网站公共配置数据，存储到vuex中去
+    async fetchSwiper(){
+            const res = await this.$axios.get('/imgs')
+            console.log(res.data[0])
+            // this.imgList = res.data[0].items
+            this.$store.dispatch('recordAd',{
+                data:res.data[0]
+            })
+        },
+  },
   watch:{
     $route(to, from) {
        if((to.path == '/tabbar/home')&&sessionStorage.active){

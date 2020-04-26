@@ -24,6 +24,11 @@ export default {
                     icon:'iconfenlei',
                     text:'分类',
                     to:'/tabbar/classify'
+                },
+                {
+                    icon:'iconsousuo',
+                    text:'搜索',
+                    to:'/tabbar/search'
                 }
             ]
         }

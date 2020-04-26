@@ -87,6 +87,25 @@ export default new Router({
           name:'adminuserslist',
           component: () => import('@/views/adminUser/adminUserList.vue')
         },
+
+        // 新增促销活动页面
+        {
+          path:'/sales/creat',
+          name:'salesedit',
+          component: () => import('@/views/sale/saleEdit.vue')
+        },
+        // 新建管理员带id，新式写法，以前没用过，以前是通过params传参到这个页面，然后判断有无进行页面渲染
+        {
+          path:'/sales/creat/:id',
+          name:'sales2',
+          component: () => import('@/views/sale/saleEdit.vue'),props:true
+        },
+        // 管理员列表
+        {
+          path:'/sales/list',
+          name:'saleslist',
+          component: () => import('@/views/sale/saleList.vue')
+        },
       ]
     }
   ]

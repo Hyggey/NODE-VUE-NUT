@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="adEdit_box">
         <h1>{{id?'编辑':'新增'}}广告位</h1>
         <el-form label-width="120px" @submit.native.prevent="save">
             <el-form-item label="名称">
@@ -28,6 +28,44 @@
                         </el-form-item>
                     </el-col>
                 </el-row>
+            </el-form-item>
+            <el-form-item label="快递满包邮">
+                <el-input type="textarea" v-model="model.delivery"></el-input>&nbsp;&nbsp;
+            </el-form-item>
+            <el-form-item label="活动">
+                <el-button size="small" type="primary" @click="model.activities.push({})"><i class="el-icon-plus"></i>添加活动</el-button>
+                <el-row type="flex" style="flex-wrap:wrap">
+                    <el-col :md="24" v-for="(item,index) in model.activities" :key="index">
+                        <el-form-item label="活动描述">
+                            <el-input v-model="item.item"></el-input>
+                        </el-form-item>
+                        <el-form-item>
+                            <el-button size="small" type="danger" @click="model.activities.splice(index,1)">删除</el-button>
+                        </el-form-item>
+                    </el-col>
+                </el-row>
+            </el-form-item>
+            <el-form-item label="微信二维码">
+                <el-upload
+                    class="avatar-uploader"
+                    :action="$axios.defaults.baseURL+'/upload'"
+                    :show-file-list="false"
+                    :on-success="res => $set(model,'friendImg',res.url)"
+                    >
+                <img v-if="model.friendImg" :src="model.friendImg" class="avatar">
+                <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+                </el-upload>
+            </el-form-item>
+            <el-form-item label="收款二维码">
+                <el-upload
+                    class="avatar-uploader"
+                    :action="$axios.defaults.baseURL+'/upload'"
+                    :show-file-list="false"
+                    :on-success="res => $set(model,'cashImg',res.url)"
+                    >
+                <img v-if="model.cashImg" :src="model.cashImg" class="avatar">
+                <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+                </el-upload>
             </el-form-item>
             <el-form-item>
                 <el-button type="primary" native-type="submit">保存</el-button>

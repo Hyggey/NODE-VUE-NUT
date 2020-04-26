@@ -6,6 +6,7 @@
                 shape="round"
                 background="#e43a3d"
                 placeholder="请输入搜索关键词"
+                @search="onSearch"
                 />
         </div>
         <div class="swiper_box">
@@ -17,66 +18,90 @@
                 </van-swipe-item>
             </van-swipe>
         </div>
-        <!-- <h2 @click="$router.push('/goods')">去到商品详情</h2> -->
-        <div class="goods_container">
-            <div @click="toGoods(item._id)" class="item_box" v-for="(item,index) in goodsData" :key="index">
-                <van-image
-                    lazy-load
-                    fit="cover"
-                    width="10rem"
-                    height="10rem"
-                    :src='item.icon'
-                    radius="5px"
-                >
-                </van-image>
-                <span class="title">{{item.name}}</span>
-                <div class="shopCar">
-                    <span>￥{{item.price}}</span>
-                    <span class="iconfont icongouwuche"></span>
-                </div>
+        <!-- 今日特价 -->
+        <div>
+            <zz-title :crown="true" v-if="bigTitle" :title="bigTitle.cheap.name"></zz-title>
+            <div class="goods_container">
+                <zz-good v-for="(v,k) in cheapGoods" :key="k" :item="v"></zz-good>
             </div>
+        </div>
+        <!-- 进入爆款 -->
+        <div>
+            <zz-title :crown="false" v-if="bigTitle" :title="bigTitle.hot.name"></zz-title>
+             <div class="goods_container">
+                <zz-good v-for="(v,k) in hotGoods" :key="k" :item="v"></zz-good>
+            </div>
+        </div>
+        <!-- <h2 @click="$router.push('/goods')">去到商品详情</h2> -->
+        <!-- 全部商品 -->
+        <van-divider
+            :style="{margin:'1rem 0',fontSize:'18px',height:'60px',background:'#fff', 
+            color: '#e43a3d', borderColor: '#e43a3d', padding: '0 60px' }"
+            >
+            <span class="iconfont iconaixin"></span>
+            你可能还喜欢
+        </van-divider>
+        <div class="goods_container">
+            <zz-good v-for="(v,k) in goodsData" :key="k" :item="v"></zz-good>
         </div>
     </div>
 </template>
 
 <script>
+import {mapState} from 'vuex'
 export default {
     data(){
         return{
             value:'',
-            imgList:[],
-            goodsData:[]  //商品数据
+            // imgList:[],
+            goodsData:[],  //商品数据
+            cheapGoods:[],  //特价新品数据
+            hotGoods:[],  //爆款商品
+            bigTitle:{
+                cheap:{name:''},
+                hot:{name:''}
+            }
         }
     },
     methods: {
         // 获取swiper图片数据
-        async fetchSwiper(){
-            const res = await this.$axios.get('/imgs')
-            console.log(res.data[0])
-            this.imgList = res.data[0].items
-
-        },
+        
         // 获取商品数据
         async fetchGoodsData(){
             const res = await this.$axios.post('/goods')
             console.log(res.data)
             this.goodsData = res.data
         },
-        // 去到商品详情
-        toGoods(id){
-            this.$router.push({path:'/goods',query:{id:id}})
-        }
+        // 获取活动商品及名字
+        async fetchActivity(){
+            const res = await this.$axios.post('/activity')
+            console.log(res.data[0])
+            this.bigTitle = res.data[0]
+            this.cheapGoods = res.data[0].cheap.cheapGoods
+            this.hotGoods = res.data[0].hot.hotGoods
+        },
+        onSearch(){
+            if(this.value.trim()){
+                this.$router.push({path:'/tabbar/search',query:{msg:this.value}})
+            }
+        },
+    },
+    computed: {
+        ...mapState({
+            imgList: state => state.ad.adInfo.items
+        })
     },
     created() {
-        this.fetchSwiper()
+        // this.fetchSwiper()
         this.fetchGoodsData()
+        this.fetchActivity()
     },
 }
 </script>
 
 <style lang="less" scoped>
 .home_box{
-    // padding-bottom: 5rem;
+    padding-bottom: 4rem;
     .swiper_box{
         // height: 180px;
         .my-swipe .van-swipe-item {
@@ -94,32 +119,20 @@ export default {
     .goods_container{
         display: flex;
         flex-wrap: wrap;
-        .item_box{
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            width: 50%;
-            margin-bottom: .5rem;
-            .title{
-                text-align: center;
-                width: 9rem;
-                display: inline-block;
-                white-space: nowrap;
-                overflow: hidden;
-                text-overflow: ellipsis;
-                margin: 10px 0 15px 0;
-                font-size: .8rem;
-                color: #333;
-            }
-            .shopCar{
-                color: #e43a3d;
-                width: 10rem;
-                display: flex;
-                justify-content: space-between;
-                .iconfont{
-                    font-size: 1.2rem;
-                }
-            }
+        justify-content: space-between;
+    }
+    .van-divider{
+        // margin: 1rem 0;
+        .iconaixin{
+            font-size: 1.3rem;
+            color: #fff;
+            background: #e43a3d;
+            border-radius: 100%;
+            width: 1.8rem;
+            height: 1.8rem;
+            text-align: center;
+            line-height: 1.9rem;
+            margin-right: .5rem;
         }
     }
 }
